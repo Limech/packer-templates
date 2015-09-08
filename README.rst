@@ -4,6 +4,12 @@ shiguredo-packer-templates
 
 Packer templates for building base VM boxes.
 
+Todo
+=====
+
+* Pass location of download share in command line.
+* Pass option to build with Desktop or not.
+
 Usage
 =====
 
