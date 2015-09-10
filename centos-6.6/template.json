@@ -17,6 +17,7 @@
       "override": {
         "virtualbox-iso": {
           "scripts": [
+            "scripts/base.sh",
             "scripts/vagrant.sh",
             "scripts/virtualbox.sh",
             "scripts/cleanup.sh",
@@ -32,7 +33,12 @@
           ]
         }
       }
-    }
+    },
+	{
+	   "type" : "puppet-masterless",
+	   "manifest_file"  : "../../cis-puppet/manifests/",
+	   "module_paths"  : "../../share/puppet-modules/"
+	}
   ],
   "post-processors": [
     {
