@@ -11,6 +11,16 @@
       "source": "../../share/cis-cat-full",
       "destination": "/home/vagrant"
     },
+	{
+      "type": "file",
+      "source": "../../share/clamav",
+      "destination": "/home/vagrant"
+    },
+	{
+      "type": "file",
+      "source": "../../share/puppet-rpm",
+      "destination": "/home/vagrant"
+    },
     {
       "type": "shell",
       "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
@@ -34,11 +44,12 @@
         }
       }
     },
-	{
+    {
 	   "type" : "puppet-masterless",
 	   "manifest_file"  : "../../puppet-cis/manifests/init.pp",
 	   "module_paths"  : "../../share/puppet-modules/"
 	}
+
   ],
   "post-processors": [
     {
