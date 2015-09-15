@@ -20,8 +20,8 @@
             "scripts/base.sh",
             "scripts/vagrant.sh",
             "scripts/virtualbox.sh",
-            "scripts/cleanup.sh",
-            "scripts/zerodisk.sh"
+            "scripts/puppet-modules.sh",
+            "scripts/cleanup.sh"
           ]
         },
         "vmware-iso": {
@@ -36,7 +36,7 @@
     },
 	{
 	   "type" : "puppet-masterless",
-	   "manifest_file"  : "../../cis-puppet/manifests/",
+	   "manifest_file"  : "../../puppet-cis/manifests/init.pp",
 	   "module_paths"  : "../../share/puppet-modules/"
 	}
   ],
