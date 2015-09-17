@@ -30,7 +30,6 @@
             "scripts/base.sh",
             "scripts/vagrant.sh",
             "scripts/virtualbox.sh",
-            "scripts/puppet-modules.sh",
             "scripts/cleanup.sh"
           ]
         },
@@ -46,7 +45,7 @@
     },
     {
 	   "type" : "puppet-masterless",
-	   "manifest_file"  : "../../puppet-cis/manifests/init.pp",
+	   "manifest_file"  : "../../share/puppet-cis/manifests/init.pp",
 	   "module_paths"  : "../../share/puppet-modules/"
 	}
 
