@@ -21,24 +21,27 @@
       "source": "../../share/puppet-rpm",
       "destination": "/home/vagrant"
     },
+	{
+		"type" : "shell",
+		"execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
+		"scripts" : [
+		   "scripts/base.sh",
+           "scripts/vagrant.sh",
+		   "scripts/clamav.sh"
+		]
+	},
     {
       "type": "shell",
       "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
       "override": {
         "virtualbox-iso": {
           "scripts": [
-            "scripts/base.sh",
-            "scripts/vagrant.sh",
-            "scripts/virtualbox.sh",
-            "scripts/cleanup.sh"
+            "scripts/virtualbox.sh"
           ]
         },
         "vmware-iso": {
           "scripts": [
-            "scripts/base.sh",
-            "scripts/vagrant.sh",
-            "scripts/vmware.sh",
-            "scripts/cleanup.sh"
+            "scripts/vmware.sh"
           ]
         }
       }
@@ -47,6 +50,14 @@
 	   "type" : "puppet-masterless",
 	   "manifest_file"  : "../../share/puppet-cis/manifests/init.pp",
 	   "module_paths"  : "../../share/puppet-modules/"
+	},
+	{
+		"type" : "shell",
+		"execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
+		"scripts" : [
+		   "scripts/cleanup.sh",
+		   "scripts/zerodisk.sh"
+		]
 	}
 
   ],
