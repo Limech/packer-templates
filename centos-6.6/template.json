@@ -56,7 +56,16 @@
 		"execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
 		"scripts" : [
 		   "scripts/cleanup.sh",
-		   "scripts/zerodisk.sh"
+		   "scripts/zerodisk.sh",
+		   "scripts/reboot.sh"
+		]
+	},
+	{
+		"type" : "shell",
+		"start_retry_timeout" : "1m",
+		"execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
+		"scripts" : [
+		   "scripts/cis-cat-audit.sh"
 		]
 	}
 
