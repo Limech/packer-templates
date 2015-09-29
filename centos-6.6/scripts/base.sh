@@ -4,7 +4,7 @@ set -e
 set -x
 
 # Install Puppet for CIS-CAT provisioning
-rpm -ivh /home/vagrant/puppet-rpm/*.rpm
+rpm -ivh --replacefiles --replacepkgs /home/vagrant/puppet-rpm/*.rpm
 
 # Ensure CIS-CAT audit script can be executed
 chmod 755 /home/vagrant/cis-cat-full/CIS-CAT.sh
@@ -15,8 +15,6 @@ yum-config-manager --disable extras
 yum-config-manager --disable updates
 yum clean all
 
-# CIS 1.2.1
-rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 
 # CIS 3.4
 chkconfig cups off

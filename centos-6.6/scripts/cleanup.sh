@@ -6,6 +6,8 @@ chmod 0600 /var/log/boot.log
 set -e
 set -x
 
+#CIS 9.2.7
+chmod 700 /home/vagrant/
 
 ## Delete stuff we no longer need
 
@@ -23,7 +25,7 @@ rmdir /home/vagrant/clamav/
 chmod -R +t /tmp/packer-puppet-masterless/module-0/cis
 
 # Restart network in preparation for running CIS-CAT audit
-sysctl -p
+#sysctl -p
 
 
 

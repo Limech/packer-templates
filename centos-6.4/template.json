@@ -1,27 +1,75 @@
+
 {
   "provisioners": [
+    {
+      "type": "file",
+      "source": "./http/vagrant.pub",
+      "destination": "/home/vagrant/.ssh/authorized_keys"
+    },
+    {
+      "type": "file",
+      "source": "../../share/cis-cat-full",
+      "destination": "/home/vagrant"
+    },
+	{
+      "type": "file",
+      "source": "../../share/clamav",
+      "destination": "/home/vagrant"
+    },
+	{
+      "type": "file",
+      "source": "../../share/puppet-rpm",
+      "destination": "/home/vagrant"
+    },
+	{
+		"type" : "shell",
+		"execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
+		"scripts" : [
+		   "scripts/base.sh",
+		   "scripts/base-centos.sh",
+           "scripts/vagrant.sh",
+		   "scripts/clamav.sh"
+		]
+	},
     {
       "type": "shell",
       "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
       "override": {
         "virtualbox-iso": {
           "scripts": [
-            "scripts/base.sh",
-            "scripts/vagrant.sh",
-            "scripts/virtualbox.sh",
-            "scripts/cleanup.sh"
+            "scripts/virtualbox.sh"
           ]
         },
         "vmware-iso": {
           "scripts": [
-            "scripts/base.sh",
-            "scripts/vagrant.sh",
-            "scripts/vmware.sh",
-            "scripts/cleanup.sh"
+            "scripts/vmware.sh"
           ]
         }
       }
-    }
+    },
+    {
+	   "type" : "puppet-masterless",
+	   "manifest_file"  : "../../share/puppet-cis/manifests/init.pp",
+	   "module_paths"  : "../../share/puppet-modules/"
+	},
+	{
+		"type" : "shell",
+		"execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
+		"scripts" : [
+		   "scripts/cleanup.sh",
+		   "scripts/zerodisk.sh",
+		   "scripts/reboot.sh"
+		]
+	},
+	{
+		"type" : "shell",
+		"start_retry_timeout" : "1m",
+		"execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
+		"scripts" : [
+		   "scripts/cis-cat-audit-centos.sh"
+		]
+	}
+
   ],
   "post-processors": [
     {
@@ -46,19 +94,30 @@
       "disk_size": 40520,
       "guest_os_type": "RedHat_64",
       "http_directory": "http",
-      "iso_checksum": "4a5fa01c81cc300f4729136e28ebe600",
-      "iso_checksum_type": "md5",
-      "iso_url": "http://archive.kernel.org/centos-vault/6.4/isos/x86_64/CentOS-6.4-x86_64-minimal.iso",
+      "iso_checksum": "8672dc087f1b0eda60b9efaa41b82f034f185e24",
+      "iso_checksum_type": "sha1",
+      "iso_url": "../../share/CentOS-6.4-x86_64-bin-DVD1.iso",
+      "headless": false,
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
-      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
+      "shutdown_command": "sudo /sbin/shutdown -hP now",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
       "vboxmanage": [
-        [ "modifyvm", "{{.Name}}", "--memory", "512" ],
-        [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "512"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
       ]
     },
     {
@@ -68,16 +127,16 @@
       ],
       "boot_wait": "10s",
       "disk_size": 40520,
-      "guest_os_type": "linux",
+      "guest_os_type": "RedHat_64",
       "http_directory": "http",
-      "iso_checksum": "4a5fa01c81cc300f4729136e28ebe600",
-      "iso_checksum_type": "md5",
-      "iso_url": "http://ftp.iij.ad.jp/pub/linux/centos/6.4/isos/x86_64/CentOS-6.4-x86_64-minimal.iso",
+      "iso_checksum": "8672dc087f1b0eda60b9efaa41b82f034f185e24",
+      "iso_checksum_type": "sha1",
+      "iso_url": "../../share/CentOS-6.4-x86_64-bin-DVD1.iso",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
-      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
+      "shutdown_command": "sudo /sbin/shutdown -hP now",
       "tools_upload_flavor": "linux",
       "vmx_data": {
         "memsize": "512",
