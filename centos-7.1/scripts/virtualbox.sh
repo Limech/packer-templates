@@ -1,11 +1,11 @@
 VBOX_VERSION=$(cat /home/vagrant/.vbox_version)
-
-# required for VirtualBox 4.3.26
-yum install -y bzip2
-
 cd /tmp
-mount -o loop /home/vagrant/VBoxGuestAdditions_$VBOX_VERSION.iso /mnt
-sh /mnt/VBoxLinuxAdditions.run
-umount /mnt
+mkdir /mnt/vbox
+mount -o loop /home/vagrant/VBoxGuestAdditions_$VBOX_VERSION.iso /mnt/vbox
+sh /mnt/vbox/VBoxLinuxAdditions.run
+umount /mnt/vbox
+rmdir /mnt/vbox
 rm -rf /home/vagrant/VBoxGuestAdditions_*.iso
+
+ln -s /opt/VBoxGuestAdditions_$VBOX_VERSION/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
 
