@@ -22,10 +22,7 @@ rmdir /home/vagrant/puppet-rpm/
 rm -rf /home/vagrant/clamav/*
 rmdir /home/vagrant/clamav/
 
-chmod -R +t /tmp/packer-puppet-masterless/module-0/cis
-
-# Restart network in preparation for running CIS-CAT audit
-#sysctl -p
+chmod -R +t /tmp/packer-puppet-masterless/
 
 
 
