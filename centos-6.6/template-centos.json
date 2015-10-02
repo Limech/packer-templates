@@ -49,7 +49,7 @@
     },
     {
 	   "type" : "puppet-masterless",
-	   "manifest_file"  : "../../share/puppet-cis/manifests/init.pp",
+	   "manifest_file"  : "../../share/puppet-cis-el6/manifests/init.pp",
 	   "module_paths"  : "../../share/puppet-modules/"
 	},
 	{
@@ -74,12 +74,13 @@
   "post-processors": [
     {
       "type": "vagrant",
+      "keep_input_artifact" : true,
       "override": {
         "virtualbox": {
-          "output": "centos-6-4-x64-virtualbox.box"
+          "output": "centos-6-6-x64-virtualbox.box"
         },
         "vmware": {
-          "output": "centos-6-4-x64-vmware.box"
+          "output": "centos-6-6-x64-vmware.box"
         }
       }
     }
@@ -91,12 +92,13 @@
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
+	  "output_directory":"centos",
       "disk_size": 40520,
       "guest_os_type": "RedHat_64",
       "http_directory": "http",
-      "iso_checksum": "8672dc087f1b0eda60b9efaa41b82f034f185e24",
-      "iso_checksum_type": "sha1",
-      "iso_url": "../../share/CentOS-6.4-x86_64-bin-DVD1.iso",
+      "iso_checksum": "a63241b0f767afa1f9f7e59e6f0f00d6b8d19ed85936a7934222c03a92e61bf3",
+      "iso_checksum_type": "sha256",
+      "iso_url": "../../share/CentOS-6.6-x86_64-bin-DVD1.iso",
       "headless": false,
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -129,9 +131,9 @@
       "disk_size": 40520,
       "guest_os_type": "RedHat_64",
       "http_directory": "http",
-      "iso_checksum": "8672dc087f1b0eda60b9efaa41b82f034f185e24",
-      "iso_checksum_type": "sha1",
-      "iso_url": "../../share/CentOS-6.4-x86_64-bin-DVD1.iso",
+      "iso_checksum": "a63241b0f767afa1f9f7e59e6f0f00d6b8d19ed85936a7934222c03a92e61bf3",
+      "iso_checksum_type": "sha256",
+      "iso_url": "../../share/CentOS-6.6-x86_64-bin-DVD1.iso",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,

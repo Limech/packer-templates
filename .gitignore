@@ -1,3 +1,8 @@
 packer_cache
 *.box
 output-*
+centos-6.4/centos/
+centos-6.4/rhel/packer-virtualbox-iso-1443806818.ovf
+centos-6.4/rhel/packer-virtualbox-iso-1443806818-disk1.vmdk
+centos-6.6/centos/
+centos-6.6/rhel/

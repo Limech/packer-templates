@@ -49,7 +49,7 @@
     },
     {
 	   "type" : "puppet-masterless",
-	   "manifest_file"  : "../../share/puppet-cis/manifests/init.pp",
+	   "manifest_file"  : "../../share/puppet-cis-el6/manifests/init.pp",
 	   "module_paths"  : "../../share/puppet-modules/"
 	},
 	{
@@ -74,12 +74,13 @@
   "post-processors": [
     {
       "type": "vagrant",
+	   "keep_input_artifact" : true,
       "override": {
         "virtualbox": {
-          "output": "rhel-6-6-x64-virtualbox.box"
+          "output": "rhel-workstation-6-6-x64-virtualbox.box"
         },
         "vmware": {
-          "output": "rhel-6-6-x64-vmware.box"
+          "output": "rhel-workstation-6-6-x64-vmware.box"
         }
       }
     }
@@ -91,6 +92,7 @@
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
+	  "output_directory":"rhel",
       "disk_size": 40520,
       "guest_os_type": "RedHat_64",
       "http_directory": "http",
