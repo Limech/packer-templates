@@ -24,6 +24,14 @@ rmdir /home/vagrant/clamav/
 
 chmod -R +t /tmp/packer-puppet-masterless/
 
+mkdir -p /var/log/audit
+
+#CIS 1.1.14, 1.1.15, 1.1.16
+awk '$2=="/dev/shm" { $4="nodev,nosuid,noexec"; } 1' /etc/fstab  > /home/vagrant/fstab.new
+cp /home/vagrant/fstab.new /etc/fstab
+rm /home/vagrant/fstab.new
+
+
 
 
 

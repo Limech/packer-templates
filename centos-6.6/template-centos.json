@@ -56,9 +56,9 @@
 		"type" : "shell",
 		"execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
 		"scripts" : [
+		   "scripts/reboot.sh",
 		   "scripts/cleanup.sh",
-		   "scripts/zerodisk.sh",
-		   "scripts/reboot.sh"
+		   "scripts/zerodisk.sh"
 		]
 	},
 	{
