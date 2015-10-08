@@ -87,6 +87,7 @@
   "builders": [
     {
       "type": "virtualbox-iso",
+	  "vm_name" : "rhel-workstation-6-4-x64",
       "boot_command": [
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
