@@ -21,11 +21,11 @@ Packer ([https://packer.io/](https://packer.io/ "Packer")) templates for buildin
 
 These packer files should work using the Windows or Linux versions of Packer but were only tested with the Windows version. Installer can be found under:
 
-    \\share\Installs\Packer\v0.8.6\installer\packer_0.8.6_windows_amd64.zip
+    {network-share}\Installs\Packer\v0.8.6\installer\packer_0.8.6_windows_amd64.zip
 
 To use Packer, VirtualBox must also be installed.  Installer can be found under:
 
-    \\share\Installs\VirtualBox\v5.0.2\installers\VirtualBox-5.0.2-102096-Win.exe
+    {network-share}\Installs\VirtualBox\v5.0.2\installers\VirtualBox-5.0.2-102096-Win.exe
 
 #### Preparing Packer
 
@@ -36,7 +36,7 @@ Assuming a working folder of `{packer}` (Ex: `c:\dev\packer\`), from that folder
 
 Then we need to create a `share` folder under `{packer}` and copy the contents from 
 
-    \\share\Backups\Packer\share
+    {network-share}\Backups\Packer\share
 
 This folder is rather large as it contains the ISO files from the various Linux distros.   
 Finally from the `{packer}\share\puppet-modules\` folder we import the CIS-CAT Puppet manifests
@@ -55,7 +55,6 @@ The `share` folder should contain the following:
 * puppet-cis-el7 - Manifest invoking the cis::el7all module
 * puppet-modules - Modules used by Puppet
   * cis - The `devops/cis-puppet` repo contents
-  * sysctl - The `sysctrl` Puppet module.
 * puppet-rpm - el6 RPM files for installing Puppet
 * puppet-rpm-el7 - el7 RPM files for installing Puppet
 * CentOS-6.4-x86_64-bin-DVD1.iso - CentOS 6.4 ISO
@@ -217,4 +216,3 @@ False positive.
 #### CIS-CAT 7.4 Set Default umask for Users
 Requires all shell to default mask to 77 but the failing files under '/etc/profile.d/' folder are not shell defaults, but other config files and scripts that would break if 'umask 77' would be added to them.   
 Failing on purpose.
-
