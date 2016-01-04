@@ -16,8 +16,8 @@ yum -y clean all
 rm -rf VBoxGuestAdditions_*.iso
 rm -rf /tmp/rubygems-*
 
-rm -rf /home/vagrant/puppet-rpm/*
-rmdir /home/vagrant/puppet-rpm/
+rm -rf /home/vagrant/puppet-rpm-el7/*
+rmdir /home/vagrant/puppet-rpm-el7/
 
 rm -rf /home/vagrant/clamav/*
 rmdir /home/vagrant/clamav/
