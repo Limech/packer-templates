@@ -47,17 +47,11 @@
         }
       }
     },
-    {
-	   "type" : "puppet-masterless",
-	   "manifest_file"  : "../../share/puppet-cis-el7/manifests/init.pp",
-	   "module_paths"  : "../../share/puppet-modules/"
-	},
 	{
 		"type" : "shell",
 		"execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
 		"scripts" : [
 		   "scripts/cleanup.sh",
-		   "scripts/zerodisk.sh",
 		   "scripts/reboot.sh"
 		]
 	},
@@ -104,7 +98,7 @@
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
       "vboxmanage": [
-        [ "modifyvm", "{{.Name}}", "--memory", "1024" ],
+        [ "modifyvm", "{{.Name}}", "--memory", "512" ],
         [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
       ]
     },

@@ -22,8 +22,6 @@ rmdir /home/vagrant/puppet-rpm-el7/
 rm -rf /home/vagrant/clamav/*
 rmdir /home/vagrant/clamav/
 
-chmod -R +t /tmp/packer-puppet-masterless/
-
 
 
 
