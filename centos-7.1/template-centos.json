@@ -48,11 +48,17 @@
       }
     },
 	{
+	   "type" : "puppet-masterless",
+	   "manifest_file"  : "../../share/puppet-cis-el7/manifests/init.pp",
+	   "module_paths"  : "../../share/puppet-modules/"
+	},
+	{
 		"type" : "shell",
 		"execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
 		"scripts" : [
+		   "scripts/reboot.sh",
 		   "scripts/cleanup.sh",
-		   "scripts/reboot.sh"
+		   "scripts/zerodisk.sh"
 		]
 	},
 	{
@@ -98,8 +104,9 @@
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
       "vboxmanage": [
-        [ "modifyvm", "{{.Name}}", "--memory", "512" ],
-        [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
+        [ "modifyvm", "{{.Name}}", "--memory", "1024" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "1" ],
+		[ "modifyvm", "{{.Name}}", "--vram", "16" ]
       ]
     },
     {
@@ -121,7 +128,7 @@
       "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
       "tools_upload_flavor": "linux",
       "vmx_data": {
-        "memsize": "512",
+        "memsize": "1024",
         "numvcpus": "1",
         "cpuid.coresPerSocket": "1"
       }

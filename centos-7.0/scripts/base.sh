@@ -16,7 +16,7 @@ chmod 755 /home/vagrant/cis-cat-full/CIS-CAT.sh
 #yum clean all
 
 # Run desktop mode
-systemctl set-default graphical.target
+systemctl set-default multi-user.target
 
 
 # CIS 3.4
