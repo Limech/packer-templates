@@ -73,6 +73,7 @@
   "post-processors": [
     {
       "type": "vagrant",
+	   "keep_input_artifact" : true,
       "override": {
         "virtualbox": {
           "output": "centos-7-1-x64-virtualbox.box"
@@ -86,10 +87,12 @@
   "builders": [
     {
       "type": "virtualbox-iso",
+	  "vm_name" : "centos-7-1-x64-0.1.0",
       "boot_command": [
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
+	  "output_directory":"centos",
       "disk_size": 40520,
 	  "hard_drive_interface": "sata",
       "guest_os_type": "RedHat_64",
