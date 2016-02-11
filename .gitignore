@@ -8,3 +8,4 @@ centos-6.6/centos/
 centos-6.6/rhel/
 centos-6.4/rhel/
 centos-7.1/centos/
+*.xva
