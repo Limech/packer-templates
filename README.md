@@ -1,11 +1,9 @@
 
 ## Packer-templates
 
-
-Packer ([https://packer.io/](https://packer.io/ "Packer")) templates for building base VM boxes for CentOS/Red Hat Enterprise Linux 6.4 and 6.6.
+Packer ([https://packer.io/](https://packer.io/ "Packer")) templates for building base VM boxes for various flavors of Linux.
 
 ### Todo
-
 
 * Pass location of share in command line and standardize source based on corporate NAS location.
 * Pass build options like:
@@ -63,12 +61,7 @@ The `share` folder should contain the following:
 * rhel-workstation-6.6-x86_64-dvd.iso - Red Hat 6.6 ISO
 
 #### Important check
-The `ks.cfg` files under 
-
-* `{packer}\packer-templates\centos-6.4\http` and
-*  `{packer}\packer-templates\centos-6.6\http`
-
-must have Linux type line endings.
+The `ks.cfg` files under the various `http` folders must have Linux type line endings.
 Load them up in Notepad++ and select 
     Edit->EOL Conversion->UNIX/OSX Format
 and save the files. Failure to do so will result in an error as follows:
@@ -87,16 +80,23 @@ If the build is successful, there will be a `centos` folder under
     
 that contains a VirtualBox Virtual Machine (VM) of OVF format.
 There will also be a `centos-6-6-x64-virtualbox.box` file, which is the Vagrant base box equivalent.
+*Note version different than example for other versions.
 
 #### Supported versions
 
 These templates was tested using a packer 0.8.6.
-Only the following templates have been tested/updated.  Within these templates, only the Virtualbox builder has been tested.  The VMWare builder has not been tested.
+Only the following templates have been tested/updated.  
+Within most of these templates, only the Virtualbox builder has been tested.  The VMWare builder has not been tested.
 
 * centos-6.4/template-centos.json
 * centos-6.4/template-rhel.json
 * centos-6.6/template-centos.json
 * centos-6.6/template-rhel.json
+* centos-7.0/template-centos.json
+* centos-7.1/template-centos.json
+* centos-7.1/template-centos-xenserver.json
+
+All other configurations (scientific / ubuntu and other versions of CentOS) have not been verified.
 
 ## Box Details
 
@@ -119,19 +119,24 @@ The following Logical Volumes (LG) under a single Volume Group (VG) mapped to a 
 |  pv.01   | Linux LVM |   40GB    |  sda3    |
   
 * vg_root
-  * audit   1GB
-  * home   25GB
-  * log     1GB
-  * root   10GB
-  * tmp   512MB
-  * var   512MB
+  * audit   1GB  /var/log/audit
+  * home   25GB  /home
+  * log     1GB  /var/log
+  * root   10GB  /
+  * tmp   512MB  /tmp
+  * var    10GB  /var
 
 ### Virtual Machine Details  
 Virtual Machines are created with 512MB of RAM, no floppy, audio or USB controllers.
-They have 1 CPU and 40GB virtual hard drive.
+They have 1 CPU and 40GB SATA virtual hard drive.
 VirtualBox VMs are of type OVF with VMDK virtual drives.
+Gnome desktop, ClamAV, Puppet, CIS-CAT and Firefox are installed by default.
 
 ### Known issues
+
+### CentOS 7.0 X11 issue
+For some reason, CentOS 7.0 on VirtualBox comes up with black screen when graphical desktop is enabled.
+Therefore, this image is set to use the console.  To get the desktop, login and do `sudo startx`.
 
 #### Drive size
 The selected drive sizes might not be the same as what you want them to be.  If you want to resize the drive to make it **larger**, you can do the following:
@@ -153,7 +158,7 @@ In Linux (as su):
 
 ### Hardening
 All images have been hardened with Puppet to Level 2 of the CIS-CAT benchmark.   
-All have 154 pass, 14 fails with pass rate of 91%.
+The pass rate varies and here is an incomplete list of failures with explanations for CentOS 6.4
 
 List of failing tests:
 

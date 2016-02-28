@@ -22,6 +22,9 @@ chkconfig cups off
 #CIS 1.1.6
 echo "/tmp /var/tmp none bind 0 0" >> /etc/fstab 
 
+## Eliminate DNS lookups during SSH connections
+echo "OPTIONS='-u0'" >> /etc/sysconfig/sshd
+
 #CIS 6.3.1 This causes /etc/libuser.conf to also be updated as doing it in kickstart file
 # only updated /etc/login.defs
 authconfig --enableshadow --passalgo=sha512 --update

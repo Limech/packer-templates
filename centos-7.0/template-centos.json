@@ -86,6 +86,7 @@
   "builders": [
     {
       "type": "virtualbox-iso",
+	  "vm_name" : "centos-7-0-x64-0.1.0",
       "boot_command": [
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
@@ -120,6 +121,7 @@
 	  "hard_drive_interface": "sata",
       "guest_os_type": "centos-64",
       "http_directory": "http",
+	  "hard_drive_interface": "sata",
       "iso_checksum": "ee505335bcd4943ffc7e6e6e55e5aaa8da09710b6ceecda82a5619342f1d24d9",
       "iso_checksum_type": "sha256",
       "iso_url": "../../share/CentOS-7.0-1406-x86_64-DVD.iso",
