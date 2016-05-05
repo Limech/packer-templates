@@ -1,0 +1,152 @@
+
+{
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "./http/vagrant.pub",
+      "destination": "/home/vagrant/.ssh/authorized_keys"
+    },
+    {
+      "type": "file",
+      "source": "../../share/cis-cat-full",
+      "destination": "/home/vagrant"
+    },
+	{
+      "type": "file",
+      "source": "../../share/clamav",
+      "destination": "/home/vagrant"
+    },
+	{
+      "type": "file",
+      "source": "../../share/puppet-rpm",
+      "destination": "/home/vagrant"
+    },
+	{
+		"type" : "shell",
+		"execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
+		"scripts" : [
+		   "scripts/base.sh",
+		   "scripts/base-centos.sh",
+           "scripts/vagrant.sh",
+		   "scripts/clamav.sh"
+		]
+	},
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
+      "override": {
+        "virtualbox-iso": {
+          "scripts": [
+            "scripts/virtualbox.sh"
+          ]
+        },
+        "vmware-iso": {
+          "scripts": [
+            "scripts/vmware.sh"
+          ]
+        }
+      }
+    },
+    {
+	   "type" : "puppet-masterless",
+	   "manifest_file"  : "../../share/puppet-cis-el6/manifests/init.pp",
+	   "module_paths"  : "../../share/puppet-modules/"
+	},
+	{
+		"type" : "shell",
+		"execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
+		"scripts" : [
+		   "scripts/reboot.sh",
+		   "scripts/cleanup.sh",
+		   "scripts/zerodisk.sh"
+		]
+	},
+	{
+		"type" : "shell",
+		"start_retry_timeout" : "1m",
+		"execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
+		"scripts" : [
+		   "scripts/cis-cat-audit-centos.sh"
+		]
+	}
+
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact" : true,
+      "override": {
+        "virtualbox": {
+          "output": "centos-6-7-x64-virtualbox.box"
+        },
+        "vmware": {
+          "output": "centos-6-7-x64-vmware.box"
+        }
+      }
+    }
+  ],
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+	  "vm_name" : "centos-6-7-x64-0.1.0",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ],
+      "boot_wait": "10s",
+	  "output_directory":"centos",
+      "disk_size": 40520,
+      "guest_os_type": "RedHat_64",
+      "http_directory": "http",
+	  "hard_drive_interface": "sata",
+      "iso_checksum": "c0c1a05d3d74fb093c6232003da4b22b0680f59d3b2fa2cb7da736bc40b3f2c5",
+      "iso_checksum_type": "sha256",
+      "iso_url": "../../share/CentOS-6.7-x86_64-bin-DVD1.iso",
+      "headless": false,
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "sudo /sbin/shutdown -hP now",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "512"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
+      ]
+    },
+    {
+      "type": "vmware-iso",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 40520,
+      "guest_os_type": "RedHat_64",
+      "http_directory": "http",
+      "iso_checksum": "c0c1a05d3d74fb093c6232003da4b22b0680f59d3b2fa2cb7da736bc40b3f2c5",
+      "iso_checksum_type": "sha256",
+      "iso_url": "../../share/CentOS-6.7-x86_64-bin-DVD1.iso",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "sudo /sbin/shutdown -hP now",
+      "tools_upload_flavor": "linux",
+      "vmx_data": {
+        "memsize": "512",
+        "numvcpus": "1",
+        "cpuid.coresPerSocket": "1"
+      }
+    }
+  ]
+}
